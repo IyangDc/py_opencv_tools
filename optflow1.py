@@ -1,26 +1,26 @@
+#加载硬件包
 from imutils.video.pivideostream import PiVideoStream
 from imutils.video import FPS
 from picamera.array import PiRGBArray
 from picamera import PiCamera
-
+#加载软件包
 import cv2
 import numpy as np
 import time
 import imutils
-
+#生成摄像机对象
 camera = PiCamera()
 camera.resolution = (320,240)
 camera.framerate = 30
 rawCapture = PiRGBArray(camera,size=(320,240))
 stream = camera.capture_continuous(rawCapture,format="bgr",use_video_port=True,burst=True)
 camera.close()
-
 #params for Shi-Tomasi corner detection
+#此处调节算法参数
 feature_params = dict(maxCorners=100,qualityLevel=0.5,minDistance=7,blockSize=7)
-
 lk_params = dict( winSize=(15,15),maxLevel=2,criteria=(cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 0.03))  
-
 color = np.random.randint(0,255,(100,3))
+
 #FPS start
 vs = PiVideoStream().start()
 time.sleep(2.0)
