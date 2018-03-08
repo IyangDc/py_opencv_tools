@@ -1,3 +1,7 @@
+#代码来源于互联网
+#2018.3.8经IyangDc整合调试，确认能够在Raspiberry+picamera+opencv3的环境下运行
+#使用时需根据具体情况，调节角点检测器的各项参数
+#用于光流算法的实现
 #加载硬件包
 from imutils.video.pivideostream import PiVideoStream
 from imutils.video import FPS
@@ -60,19 +64,15 @@ while(True):
 			OpticalFlow_y = int(b * 100)
 			LastOpticalFlow_x = int(c * 100)
 			LastOpticalFlow_y = int(d * 100)
-		
 		img = cv2.add(frame,mask)
 		cv2.imshow("img",img)		
-
 		#Now update the previous frame and previous points
 		old_gray = frame_gray.copy()
 		p0 = good_new.reshape(-1,1,2)
-		
 		key = cv2.waitKey(1)&0xff
 		if key == ord("q"):
 			break
 		fps.update()
-
 fps.stop()
 print "[INFO] elasped time: {:.2f}".format(fps.elapsed())
 print "[INFO] approx. FPS: {:.2F}".format(fps.fps())
